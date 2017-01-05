@@ -55,6 +55,10 @@ class BarView:UIView{
             }
             //Round the upper limit to the next multiple
             upperLimit = previousValue+multiplier-(previousValue.truncatingRemainder(dividingBy: multiplier))
+            let firstDigit:Int = Int(upperLimit/multiplier)
+            if firstDigit != 1 && firstDigit != 2 && firstDigit != 5 {
+                upperLimit = ((upperLimit/(multiplier*5)).rounded(.up))*multiplier*5
+            }
             stepValue = upperLimit/numberOfSteps
             let unusedValueSpace = upperLimit-previousValue
             if unusedValueSpace > stepValue {
@@ -64,27 +68,26 @@ class BarView:UIView{
             }
         } else {
             digitCount = "\(Int(currentValue))".characters.count
-            print(digitCount)
             if digitCount > 3 {
                 digitCount-=3
                 for _ in 0..<digitCount{
                     multiplier*=10
                 }
             }
-            print(multiplier)
             upperLimit = currentValue+multiplier-(currentValue.truncatingRemainder(dividingBy: multiplier))
-            print(upperLimit)
+            let firstDigit:Int = Int(upperLimit/multiplier)
+            if firstDigit != 1 && firstDigit != 2 && firstDigit != 5 {
+                upperLimit = ((upperLimit/(multiplier*5)).rounded(.up))*multiplier*5
+            }
             stepValue = upperLimit/numberOfSteps
-            print(stepValue)
             let unusedValueSpace = upperLimit-currentValue
-            print(unusedValueSpace)
             if unusedValueSpace > stepValue {
                 let extraSteps = CGFloat(Int(unusedValueSpace/stepValue))
                 numberOfSteps-=extraSteps
                 upperLimit-=extraSteps*stepValue
             }
-            print(numberOfSteps)
-            print(upperLimit)
+            print(multiplier)
+            print(firstDigit)
         }
         let graphBase = bounds.height-labelHeight
         
