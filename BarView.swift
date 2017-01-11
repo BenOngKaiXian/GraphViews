@@ -23,16 +23,16 @@ class BarView:UIView{
     let labelWidth:CGFloat = 120
     let labelHeight:CGFloat = 20
     
-    func setup(previousValue:CGFloat, currentValue:CGFloat){
+    func setup(previousValue:CGFloat, currentValue:CGFloat, previousString:String, currentString:String){
         
         self.previousValue = previousValue
         self.currentValue = currentValue
         isPreviousLarger = previousValue > currentValue
         
-        populate()
+        populate(previousString,currentString)
     }
     
-    func populate(){
+    func populate(_ previousString:String,_ currentString:String){
         
         layer.sublayers?.removeAll()
         shapeLayers.removeAll()
@@ -86,8 +86,6 @@ class BarView:UIView{
                 numberOfSteps-=extraSteps
                 upperLimit-=extraSteps*stepValue
             }
-            print(multiplier)
-            print(firstDigit)
         }
         let graphBase = bounds.height-labelHeight
         
@@ -110,13 +108,13 @@ class BarView:UIView{
         previousLabel.textColor = colors[0]
         previousLabel.textAlignment = .center
         addSubview(previousLabel)
-        let YTDReceievedLabel = UILabel(frame: CGRect(x: previousBarXPos+spacingForStepLabels-labelWidth/2,
+        let previousStringLabel = UILabel(frame: CGRect(x: previousBarXPos+spacingForStepLabels-labelWidth/2,
                                                       y: graphBase,
                                                       width: labelWidth, height: labelHeight))
-        YTDReceievedLabel.text = "YTD Received"
-        YTDReceievedLabel.textColor = colors[0]
-        YTDReceievedLabel.textAlignment = .center
-        addSubview(YTDReceievedLabel)
+        previousStringLabel.text = previousString
+        previousStringLabel.textColor = colors[0]
+        previousStringLabel.textAlignment = .center
+        addSubview(previousStringLabel)
         let previousAnimation = CABasicAnimation(keyPath: "strokeEnd")
         previousAnimation.duration = 2
         previousAnimation.fromValue = 0
@@ -150,13 +148,13 @@ class BarView:UIView{
         currentLabel.textColor = colors[1]
         currentLabel.textAlignment = .center
         addSubview(currentLabel)
-        let receievableLabel = UILabel(frame: CGRect(x: currentBarXPos+spacingForStepLabels-labelWidth/2,
+        let currentStringLabel = UILabel(frame: CGRect(x: currentBarXPos+spacingForStepLabels-labelWidth/2,
                                                      y: graphBase,
                                                      width: labelWidth, height: labelHeight))
-        receievableLabel.text = "Receievable"
-        receievableLabel.textColor = colors[1]
-        receievableLabel.textAlignment = .center
-        addSubview(receievableLabel)
+        currentStringLabel.text = currentString
+        currentStringLabel.textColor = colors[1]
+        currentStringLabel.textAlignment = .center
+        addSubview(currentStringLabel)
         let currentAnimation = CABasicAnimation(keyPath: "strokeEnd")
         currentAnimation.duration = 2
         currentAnimation.fromValue = 0
