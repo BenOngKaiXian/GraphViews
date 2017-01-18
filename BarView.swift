@@ -104,7 +104,7 @@ class BarView:UIView{
         let previousLabel = UILabel(frame: CGRect(x: previousBarXPos+spacingForStepLabels-labelWidth/2,
                                                   y: graphBase-labelHeight,
                                                   width: labelWidth, height: labelHeight))
-        previousLabel.text = previousValue.currency
+        previousLabel.text = "\(previousValue)"
         previousLabel.textColor = colors[0]
         previousLabel.textAlignment = .center
         addSubview(previousLabel)
@@ -144,7 +144,7 @@ class BarView:UIView{
         let currentLabel = UILabel(frame: CGRect(x: currentBarXPos+spacingForStepLabels-labelWidth/2,
                                                  y: graphBase-labelHeight,
                                                  width: labelWidth, height: labelHeight))
-        currentLabel.text = currentValue.currency
+        currentLabel.text = "\(currentValue)"
         currentLabel.textColor = colors[1]
         currentLabel.textAlignment = .center
         addSubview(currentLabel)
@@ -205,7 +205,7 @@ class BarView:UIView{
             let markingNumber = UILabel(frame: CGRect(x: 5, y: graphBase/numberOfSteps*CGFloat(i)-10,
                                                       width: spacingForStepLabels-10, height: labelHeight))
             markingNumber.textAlignment = .right
-            markingNumber.text = "\((upperLimit-stepValue*CGFloat(i)).currency.components(separatedBy: ".")[0])"
+            markingNumber.text = "\(Int(upperLimit-stepValue*CGFloat(i)))"
             
             addSubview(markingNumber)
         }
